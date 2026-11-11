@@ -121,14 +121,16 @@ export default function SettingsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-br from-slate-50 via-rose-50/20 to-pink-50/30 flex flex-col">
       <Navbar user={session} />
 
       <main className="flex-1 max-w-4xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="mb-6">
-          <div className="flex items-center space-x-2">
-            <Settings className="h-6 w-6 text-indigo-600" />
-            <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+          <div className="flex items-center space-x-2.5">
+            <div className="h-9 w-9 rounded-xl bg-gradient-to-tr from-rose-500 to-pink-500 flex items-center justify-center text-white shadow-md shadow-rose-500/20">
+              <Settings className="h-5 w-5" />
+            </div>
+            <h1 className="text-2xl font-extrabold text-slate-900 tracking-tight">
               Organization Settings
             </h1>
           </div>
@@ -139,28 +141,28 @@ export default function SettingsPage() {
 
         {loading ? (
           <div className="py-24 text-center">
-            <Loader2 className="animate-spin h-8 w-8 text-indigo-600 mx-auto mb-2" />
+            <Loader2 className="animate-spin h-8 w-8 text-rose-600 mx-auto mb-2" />
             <p className="text-sm text-slate-500">Loading settings...</p>
           </div>
         ) : (
           <div className="space-y-6">
             {successMessage && (
-              <div className="rounded-xl bg-emerald-50 p-4 border border-emerald-200 flex items-start space-x-3">
+              <div className="rounded-2xl bg-emerald-50 p-4 border border-emerald-200 flex items-start space-x-3 shadow-xs">
                 <CheckCircle2 className="h-5 w-5 text-emerald-600 flex-shrink-0 mt-0.5" />
-                <div className="text-sm text-emerald-800">{successMessage}</div>
+                <div className="text-sm text-emerald-800 font-medium">{successMessage}</div>
               </div>
             )}
 
             {errorMessage && (
-              <div className="rounded-xl bg-red-50 p-4 border border-red-200 flex items-start space-x-3">
+              <div className="rounded-2xl bg-red-50 p-4 border border-red-200 flex items-start space-x-3 shadow-xs">
                 <AlertCircle className="h-5 w-5 text-red-600 flex-shrink-0 mt-0.5" />
-                <div className="text-sm text-red-800">{errorMessage}</div>
+                <div className="text-sm text-red-800 font-medium">{errorMessage}</div>
               </div>
             )}
 
-            <form onSubmit={handleSave} className="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-6">
-              <div className="flex items-center space-x-2 pb-4 border-b border-slate-100">
-                <Sliders className="h-5 w-5 text-indigo-600" />
+            <form onSubmit={handleSave} className="bg-white/95 backdrop-blur-md rounded-3xl border border-rose-100 shadow-xl shadow-rose-950/5 p-6 sm:p-8 space-y-6">
+              <div className="flex items-center space-x-2 pb-4 border-b border-rose-100">
+                <Sliders className="h-5 w-5 text-rose-600" />
                 <h2 className="text-base font-bold text-slate-900">
                   Global Inventory Rules (FR-7)
                 </h2>
@@ -181,18 +183,18 @@ export default function SettingsPage() {
                     required
                     value={threshold}
                     onChange={(e) => setThreshold(e.target.value)}
-                    className="block w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm font-semibold shadow-xs focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    className="block w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm font-semibold shadow-xs focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:outline-none transition-all"
                   />
                 </div>
                 <div className="mt-2 text-xs text-slate-500 flex items-start space-x-1.5">
-                  <Info className="h-4 w-4 text-slate-400 flex-shrink-0 mt-0.5" />
+                  <Info className="h-4 w-4 text-rose-500 flex-shrink-0 mt-0.5" />
                   <span>
                     When a product does not have its own specific low-stock threshold defined, this default will automatically determine when that product appears as <strong>Low Stock</strong> on the Dashboard. (Default: 5 units).
                   </span>
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-100">
+              <div className="pt-4 border-t border-rose-100">
                 <label
                   htmlFor="orgName"
                   className="block text-sm font-semibold text-slate-900 mb-1"
@@ -206,16 +208,16 @@ export default function SettingsPage() {
                     required
                     value={orgName}
                     onChange={(e) => setOrgName(e.target.value)}
-                    className="block w-full px-3.5 py-2.5 border border-slate-300 rounded-lg text-sm shadow-xs focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    className="block w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm shadow-xs focus:ring-2 focus:ring-rose-500 focus:border-rose-500 focus:outline-none transition-all"
                   />
                 </div>
               </div>
 
-              <div className="pt-4 border-t border-slate-100 flex justify-end">
+              <div className="pt-4 border-t border-rose-100 flex justify-end">
                 <button
                   type="submit"
                   disabled={saving}
-                  className="inline-flex items-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm transition-colors disabled:opacity-50"
+                  className="inline-flex items-center px-5 py-2.5 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white text-sm font-semibold rounded-xl shadow-md shadow-rose-600/20 transition-all disabled:opacity-50 cursor-pointer"
                 >
                   {saving ? (
                     <>
@@ -234,30 +236,30 @@ export default function SettingsPage() {
 
             {/* Tenant Boundary Diagnostic Card */}
             {settings && (
-              <div className="bg-white rounded-2xl border border-slate-200 shadow-xs p-6 space-y-4">
-                <div className="flex items-center space-x-2 pb-3 border-b border-slate-100">
-                  <Shield className="h-5 w-5 text-indigo-600" />
+              <div className="bg-white/95 backdrop-blur-md rounded-3xl border border-rose-100 shadow-xl shadow-rose-950/5 p-6 sm:p-8 space-y-4">
+                <div className="flex items-center space-x-2 pb-3 border-b border-rose-100">
+                  <Shield className="h-5 w-5 text-rose-600" />
                   <h3 className="text-sm font-bold text-slate-900">
                     Tenant Boundary & Security Scope
                   </h3>
                 </div>
 
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
-                  <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-                    <span className="text-slate-400 block mb-0.5">Tenant Organization ID</span>
-                    <span className="font-mono font-medium text-slate-700">{settings.id}</span>
+                  <div className="p-3.5 rounded-2xl bg-rose-50/50 border border-rose-100">
+                    <span className="text-rose-500/80 font-medium block mb-0.5">Tenant Organization ID</span>
+                    <span className="font-mono font-medium text-slate-800">{settings.id}</span>
                   </div>
-                  <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-                    <span className="text-slate-400 block mb-0.5">Account Owner</span>
-                    <span className="font-medium text-slate-700">{session?.email}</span>
+                  <div className="p-3.5 rounded-2xl bg-rose-50/50 border border-rose-100">
+                    <span className="text-rose-500/80 font-medium block mb-0.5">Account Owner</span>
+                    <span className="font-medium text-slate-800">{session?.email}</span>
                   </div>
-                  <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-                    <span className="text-slate-400 block mb-0.5">Total Products Managed</span>
-                    <span className="font-semibold text-slate-900">{settings.totalProducts}</span>
+                  <div className="p-3.5 rounded-2xl bg-rose-50/50 border border-rose-100">
+                    <span className="text-rose-500/80 font-medium block mb-0.5">Total Products Managed</span>
+                    <span className="font-bold text-slate-900 text-sm">{settings.totalProducts}</span>
                   </div>
-                  <div className="p-3 rounded-lg bg-slate-50 border border-slate-200">
-                    <span className="text-slate-400 block mb-0.5">Created At</span>
-                    <span className="text-slate-700">{new Date(settings.createdAt).toLocaleDateString()}</span>
+                  <div className="p-3.5 rounded-2xl bg-rose-50/50 border border-rose-100">
+                    <span className="text-rose-500/80 font-medium block mb-0.5">Created At</span>
+                    <span className="text-slate-800 font-medium">{new Date(settings.createdAt).toLocaleDateString()}</span>
                   </div>
                 </div>
               </div>

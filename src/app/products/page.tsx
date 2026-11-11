@@ -237,7 +237,7 @@ export default function ProductsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50 flex flex-col">
+    <div className="min-h-screen bg-gradient-to-b from-rose-50/20 via-slate-50 to-pink-50/20 flex flex-col">
       <Navbar user={session} />
 
       <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
@@ -245,19 +245,21 @@ export default function ProductsPage() {
         <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-6">
           <div>
             <div className="flex items-center space-x-2">
-              <Package className="h-6 w-6 text-indigo-600" />
-              <h1 className="text-2xl font-bold text-slate-900 tracking-tight">
+              <div className="h-8 w-8 rounded-xl bg-gradient-to-tr from-rose-500 to-pink-500 text-white flex items-center justify-center shadow-xs">
+                <Package className="h-4 w-4" />
+              </div>
+              <h1 className="text-2xl font-black text-slate-900 tracking-tight">
                 Products & Inventory
               </h1>
             </div>
             <p className="text-sm text-slate-500 mt-1">
-              Manage your catalog, SKUs, inventory counts, and price points.
+              Manage SKUs, product descriptions, stock quantities, and pricing.
             </p>
           </div>
 
           <button
             onClick={handleOpenAddModal}
-            className="inline-flex items-center justify-center px-4 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white text-sm font-medium rounded-lg shadow-sm transition-colors"
+            className="inline-flex items-center justify-center px-4 py-2.5 bg-gradient-to-r from-rose-600 via-pink-600 to-indigo-600 hover:from-rose-500 hover:via-pink-500 hover:to-indigo-500 text-white text-sm font-bold rounded-xl shadow-md shadow-pink-500/20 transition-all hover:scale-[1.02]"
           >
             <Plus className="h-4 w-4 mr-1.5" />
             Add New Product
@@ -265,17 +267,17 @@ export default function ProductsPage() {
         </div>
 
         {/* Filters & Search Toolbar */}
-        <div className="bg-white rounded-xl border border-slate-200 p-4 mb-6 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
+        <div className="bg-white rounded-2xl border border-rose-100/80 p-4 mb-6 shadow-xs flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="relative w-full md:w-96">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none text-slate-400">
+            <div className="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-rose-400">
               <Search className="h-4 w-4" />
             </div>
             <input
               type="text"
-              placeholder="Search by SKU or product name..."
+              placeholder="Search SKU or product name..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="block w-full pl-9 pr-3.5 py-2 border border-slate-300 rounded-lg text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+              className="block w-full pl-10 pr-3.5 py-2.5 border border-slate-200 rounded-xl text-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-rose-500 focus:border-rose-500"
             />
           </div>
 
@@ -283,9 +285,9 @@ export default function ProductsPage() {
             <Filter className="h-4 w-4 text-slate-400 hidden sm:block" />
             <button
               onClick={() => setStockFilter("all")}
-              className={`px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              className={`px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
                 stockFilter === "all"
-                  ? "bg-slate-900 text-white"
+                  ? "bg-slate-900 text-white shadow-xs"
                   : "bg-slate-100 text-slate-600 hover:bg-slate-200"
               }`}
             >
@@ -293,40 +295,40 @@ export default function ProductsPage() {
             </button>
             <button
               onClick={() => setStockFilter("low_stock")}
-              className={`flex items-center px-3 py-1.5 rounded-lg text-xs font-medium transition-colors ${
+              className={`flex items-center px-3.5 py-2 rounded-xl text-xs font-bold transition-all ${
                 stockFilter === "low_stock"
-                  ? "bg-amber-600 text-white"
-                  : "bg-amber-50 text-amber-700 hover:bg-amber-100 border border-amber-200"
+                  ? "bg-gradient-to-r from-red-600 to-rose-600 text-white shadow-sm shadow-rose-500/25"
+                  : "bg-rose-50 text-rose-700 hover:bg-rose-100 border border-rose-200"
               }`}
             >
-              <AlertTriangle className="h-3.5 w-3.5 mr-1" />
-              Low Stock Only
+              <AlertTriangle className="h-3.5 w-3.5 mr-1 text-rose-500" />
+              Low Stock Alerts
             </button>
           </div>
         </div>
 
         {/* Products Table */}
-        <div className="bg-white rounded-xl border border-slate-200 shadow-xs overflow-hidden">
+        <div className="bg-white rounded-2xl border border-rose-100/80 shadow-xs overflow-hidden">
           {loading ? (
             <div className="py-24 text-center">
-              <Loader2 className="animate-spin h-8 w-8 text-indigo-600 mx-auto mb-2" />
-              <p className="text-sm text-slate-500">Loading inventory items...</p>
+              <Loader2 className="animate-spin h-8 w-8 text-rose-600 mx-auto mb-2" />
+              <p className="text-sm font-medium text-slate-500">Loading inventory items...</p>
             </div>
           ) : products.length === 0 ? (
             <div className="py-20 text-center px-4">
-              <div className="h-12 w-12 rounded-full bg-slate-100 text-slate-400 flex items-center justify-center mx-auto mb-3">
+              <div className="h-12 w-12 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center mx-auto mb-3">
                 <Layers className="h-6 w-6" />
               </div>
-              <h3 className="text-base font-semibold text-slate-800">No products found</h3>
+              <h3 className="text-base font-bold text-slate-900">No products found</h3>
               <p className="text-sm text-slate-500 mt-1 max-w-sm mx-auto">
                 {searchQuery || stockFilter !== "all"
-                  ? "No inventory matches your current filter or search criteria."
-                  : "You haven't added any products yet. Get started by creating your first product."}
+                  ? "No inventory matches your current search or filter."
+                  : "You haven't added any products yet. Get started by adding your first item."}
               </p>
               {!searchQuery && stockFilter === "all" && (
                 <button
                   onClick={handleOpenAddModal}
-                  className="mt-4 inline-flex items-center px-3.5 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium rounded-lg shadow-sm transition-colors"
+                  className="mt-4 inline-flex items-center px-4 py-2 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white text-xs font-bold rounded-xl shadow-md shadow-pink-500/20"
                 >
                   <Plus className="h-3.5 w-3.5 mr-1.5" />
                   Add First Product
@@ -335,8 +337,8 @@ export default function ProductsPage() {
             </div>
           ) : (
             <div className="overflow-x-auto">
-              <table className="min-w-full divide-y divide-slate-200 text-left text-sm">
-                <thead className="bg-slate-50 text-slate-600 font-medium text-xs uppercase tracking-wider">
+              <table className="min-w-full divide-y divide-slate-100 text-left text-sm">
+                <thead className="bg-rose-50/30 text-slate-600 font-bold text-xs uppercase tracking-wider">
                   <tr>
                     <th scope="col" className="px-6 py-3.5">Product Name</th>
                     <th scope="col" className="px-6 py-3.5">SKU</th>
@@ -350,9 +352,9 @@ export default function ProductsPage() {
                   {products.map((p) => {
                     const threshold = p.lowStockThreshold ?? defaultThreshold;
                     return (
-                      <tr key={p.id} className="hover:bg-slate-50/70 transition-colors">
+                      <tr key={p.id} className="hover:bg-rose-50/30 transition-colors">
                         <td className="px-6 py-4">
-                          <div className="font-semibold text-slate-900">{p.name}</div>
+                          <div className="font-bold text-slate-900">{p.name}</div>
                           {p.description && (
                             <div className="text-xs text-slate-500 truncate max-w-xs mt-0.5">
                               {p.description}
@@ -360,16 +362,16 @@ export default function ProductsPage() {
                           )}
                         </td>
                         <td className="px-6 py-4">
-                          <span className="font-mono text-xs font-semibold px-2 py-1 bg-slate-100 text-slate-700 rounded border border-slate-200">
+                          <span className="font-mono text-xs font-bold px-2.5 py-1 bg-slate-100 text-slate-800 rounded-lg border border-slate-200">
                             {p.sku}
                           </span>
                         </td>
                         <td className="px-6 py-4">
                           <div className="flex items-center space-x-2">
-                            <span className="font-semibold text-slate-900 text-base">
+                            <span className="font-black text-slate-900 text-base">
                               {p.quantity}
                             </span>
-                            <span className="text-xs text-slate-400">units</span>
+                            <span className="text-xs text-slate-400 font-medium">units</span>
                             <button
                               onClick={() => {
                                 setAdjustingProduct(p);
@@ -378,33 +380,33 @@ export default function ProductsPage() {
                                 setFormError(null);
                               }}
                               title="Quick adjust stock"
-                              className="p-1 rounded bg-slate-100 hover:bg-indigo-50 hover:text-indigo-600 text-slate-500 text-xs transition-colors"
+                              className="p-1 rounded-lg bg-rose-50 hover:bg-rose-100 text-rose-600 text-xs transition-colors"
                             >
                               <ArrowUpDown className="h-3 w-3" />
                             </button>
                           </div>
-                          <div className="text-2xs text-slate-400 mt-0.5">
+                          <div className="text-2xs text-slate-400 font-medium mt-0.5">
                             Threshold: {threshold} {p.lowStockThreshold === null ? "(org default)" : ""}
                           </div>
                         </td>
                         <td className="px-6 py-4">
                           {p.isLowStock ? (
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-50 text-red-700 border border-red-200">
-                              <AlertTriangle className="h-3 w-3 mr-1 text-red-500" />
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-gradient-to-r from-red-100 to-rose-100 text-rose-800 border border-rose-200">
+                              <AlertTriangle className="h-3 w-3 mr-1 text-red-600" />
                               Low Stock ({p.quantity}/{threshold})
                             </span>
                           ) : (
-                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-emerald-50 text-emerald-700 border border-emerald-200">
+                            <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200">
                               <CheckCircle className="h-3 w-3 mr-1 text-emerald-500" />
                               In Stock
                             </span>
                           )}
                         </td>
                         <td className="px-6 py-4">
-                          <div className="text-xs space-y-0.5">
+                          <div className="text-xs space-y-0.5 font-medium">
                             <div>
                               <span className="text-slate-400">Sell: </span>
-                              <span className="font-medium text-slate-900">
+                              <span className="font-bold text-slate-900">
                                 {p.sellingPrice !== null ? `$${p.sellingPrice.toFixed(2)}` : "—"}
                               </span>
                             </div>
@@ -421,7 +423,7 @@ export default function ProductsPage() {
                             <button
                               onClick={() => handleOpenEditModal(p)}
                               title="Edit product"
-                              className="p-1.5 rounded-lg text-slate-500 hover:text-indigo-600 hover:bg-slate-100 transition-colors"
+                              className="p-1.5 rounded-lg text-slate-500 hover:text-rose-600 hover:bg-rose-50 transition-colors"
                             >
                               <Edit2 className="h-4 w-4" />
                             </button>
@@ -446,8 +448,8 @@ export default function ProductsPage() {
 
       {/* Modal: Add or Edit Product */}
       {(isAddModalOpen || editingProduct) && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-lg w-full p-6 shadow-xl border border-slate-200 relative animate-in fade-in zoom-in-95 duration-150">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-lg w-full p-6 shadow-2xl border border-rose-200 relative animate-in fade-in zoom-in-95 duration-150">
             <button
               onClick={() => {
                 setIsAddModalOpen(false);
@@ -458,7 +460,7 @@ export default function ProductsPage() {
               <X className="h-5 w-5" />
             </button>
 
-            <h2 className="text-lg font-bold text-slate-900 mb-1">
+            <h2 className="text-lg font-black text-slate-900 mb-1">
               {editingProduct ? "Edit Product" : "Add New Product"}
             </h2>
             <p className="text-xs text-slate-500 mb-5">
@@ -466,7 +468,7 @@ export default function ProductsPage() {
             </p>
 
             {formError && (
-              <div className="mb-4 rounded-lg bg-red-50 p-3 text-xs text-red-700 border border-red-200 flex items-center space-x-2">
+              <div className="mb-4 rounded-xl bg-red-50 p-3 text-xs text-red-700 border border-red-200 flex items-center space-x-2">
                 <AlertTriangle className="h-4 w-4 flex-shrink-0" />
                 <span>{formError}</span>
               </div>
@@ -474,36 +476,36 @@ export default function ProductsPage() {
 
             <form onSubmit={handleSaveProduct} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   Product Name *
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="Wireless Ergonomic Mouse"
+                  placeholder="Ergonomic Bluetooth Keyboard"
                   value={formData.name}
                   onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none"
                 />
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   SKU (Stock Keeping Unit) *
                 </label>
                 <input
                   type="text"
                   required
-                  placeholder="MOU-WL-001"
+                  placeholder="KB-ERG-001"
                   value={formData.sku}
                   onChange={(e) => setFormData({ ...formData, sku: e.target.value.toUpperCase() })}
-                  className="w-full font-mono uppercase px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full font-mono uppercase px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none"
                 />
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
                     Initial Quantity on Hand
                   </label>
                   <input
@@ -511,12 +513,12 @@ export default function ProductsPage() {
                     min="0"
                     value={formData.quantity}
                     onChange={(e) => setFormData({ ...formData, quantity: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
                     Low Stock Threshold
                   </label>
                   <input
@@ -525,53 +527,53 @@ export default function ProductsPage() {
                     placeholder={`Default: ${defaultThreshold}`}
                     value={formData.lowStockThreshold}
                     onChange={(e) => setFormData({ ...formData, lowStockThreshold: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none"
                   />
                 </div>
               </div>
 
               <div className="grid grid-cols-2 gap-3">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
                     Cost Price ($)
                   </label>
                   <input
                     type="number"
                     step="0.01"
                     min="0"
-                    placeholder="12.50"
+                    placeholder="24.50"
                     value={formData.costPrice}
                     onChange={(e) => setFormData({ ...formData, costPrice: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-xs font-semibold text-slate-700 mb-1">
+                  <label className="block text-xs font-bold text-slate-700 mb-1">
                     Selling Price ($)
                   </label>
                   <input
                     type="number"
                     step="0.01"
                     min="0"
-                    placeholder="29.99"
+                    placeholder="49.99"
                     value={formData.sellingPrice}
                     onChange={(e) => setFormData({ ...formData, sellingPrice: e.target.value })}
-                    className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                    className="w-full px-3.5 py-2.5 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none"
                   />
                 </div>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   Description (optional)
                 </label>
                 <textarea
                   rows={2}
-                  placeholder="Short item details or notes..."
+                  placeholder="Short item details..."
                   value={formData.description}
                   onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-sm focus:ring-2 focus:ring-indigo-500 focus:outline-none"
+                  className="w-full px-3.5 py-2 border border-slate-300 rounded-xl text-sm focus:ring-2 focus:ring-rose-500 focus:outline-none"
                 />
               </div>
 
@@ -582,14 +584,14 @@ export default function ProductsPage() {
                     setIsAddModalOpen(false);
                     setEditingProduct(null);
                   }}
-                  className="px-4 py-2 border border-slate-300 text-slate-700 text-xs font-medium rounded-lg hover:bg-slate-50 transition-colors"
+                  className="px-4 py-2 border border-slate-300 text-slate-700 text-xs font-semibold rounded-xl hover:bg-slate-50 transition-colors"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-4 py-2 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium rounded-lg shadow-sm transition-colors flex items-center"
+                  className="px-5 py-2.5 bg-gradient-to-r from-rose-600 via-pink-600 to-indigo-600 hover:from-rose-500 hover:via-pink-500 hover:to-indigo-500 text-white text-xs font-bold rounded-xl shadow-md shadow-pink-500/20 transition-all flex items-center"
                 >
                   {isSubmitting && <Loader2 className="animate-spin h-3.5 w-3.5 mr-1.5" />}
                   {editingProduct ? "Update Product" : "Create Product"}
@@ -600,10 +602,10 @@ export default function ProductsPage() {
         </div>
       )}
 
-      {/* Modal: Quick Adjust Stock (FR-5) */}
+      {/* Modal: Quick Adjust Stock */}
       {adjustingProduct && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-slate-200 relative">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-rose-200 relative">
             <button
               onClick={() => setAdjustingProduct(null)}
               className="absolute top-4 right-4 text-slate-400 hover:text-slate-600"
@@ -615,25 +617,25 @@ export default function ProductsPage() {
               Adjust Stock: {adjustingProduct.name}
             </h3>
             <p className="text-xs text-slate-500 mb-4">
-              Current stock: <strong className="text-slate-800">{adjustingProduct.quantity} units</strong> (SKU: {adjustingProduct.sku})
+              Current stock: <strong className="text-rose-600 font-bold">{adjustingProduct.quantity} units</strong> (SKU: {adjustingProduct.sku})
             </p>
 
             {formError && (
-              <div className="mb-4 rounded-lg bg-red-50 p-2.5 text-xs text-red-700 border border-red-200">
+              <div className="mb-4 rounded-xl bg-red-50 p-2.5 text-xs text-red-700 border border-red-200">
                 {formError}
               </div>
             )}
 
             <form onSubmit={handleStockAdjustment} className="space-y-4">
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   Units Delta (+/-)
                 </label>
                 <div className="flex items-center space-x-2">
                   <button
                     type="button"
                     onClick={() => setAdjustDelta((d) => d - 1)}
-                    className="px-3 py-2 bg-slate-100 hover:bg-slate-200 font-bold rounded-lg text-sm"
+                    className="px-3 py-2 bg-slate-100 hover:bg-slate-200 font-bold rounded-xl text-sm"
                   >
                     -
                   </button>
@@ -642,31 +644,31 @@ export default function ProductsPage() {
                     required
                     value={adjustDelta}
                     onChange={(e) => setAdjustDelta(parseInt(e.target.value) || 0)}
-                    className="w-full text-center px-3 py-2 border border-slate-300 rounded-lg text-sm font-semibold"
+                    className="w-full text-center px-3 py-2 border border-slate-300 rounded-xl text-sm font-bold"
                   />
                   <button
                     type="button"
                     onClick={() => setAdjustDelta((d) => d + 1)}
-                    className="px-3 py-2 bg-slate-100 hover:bg-slate-200 font-bold rounded-lg text-sm"
+                    className="px-3 py-2 bg-slate-100 hover:bg-slate-200 font-bold rounded-xl text-sm"
                   >
                     +
                   </button>
                 </div>
-                <p className="text-2xs text-slate-400 mt-1 text-center">
+                <p className="text-2xs text-slate-400 mt-1 text-center font-medium">
                   Resulting quantity: {adjustingProduct.quantity + adjustDelta}
                 </p>
               </div>
 
               <div>
-                <label className="block text-xs font-semibold text-slate-700 mb-1">
+                <label className="block text-xs font-bold text-slate-700 mb-1">
                   Reason / Note (optional)
                 </label>
                 <input
                   type="text"
-                  placeholder="e.g. Received shipment, returned unit"
+                  placeholder="e.g. Received new shipment"
                   value={adjustNote}
                   onChange={(e) => setAdjustNote(e.target.value)}
-                  className="w-full px-3 py-2 border border-slate-300 rounded-lg text-xs"
+                  className="w-full px-3 py-2 border border-slate-300 rounded-xl text-xs"
                 />
               </div>
 
@@ -674,14 +676,14 @@ export default function ProductsPage() {
                 <button
                   type="button"
                   onClick={() => setAdjustingProduct(null)}
-                  className="px-3 py-1.5 border border-slate-300 text-slate-700 text-xs font-medium rounded-lg"
+                  className="px-3 py-1.5 border border-slate-300 text-slate-700 text-xs font-semibold rounded-xl"
                 >
                   Cancel
                 </button>
                 <button
                   type="submit"
                   disabled={isSubmitting || adjustDelta === 0}
-                  className="px-3 py-1.5 bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-medium rounded-lg flex items-center"
+                  className="px-3.5 py-1.5 bg-gradient-to-r from-rose-600 to-pink-600 hover:from-rose-500 hover:to-pink-500 text-white text-xs font-bold rounded-xl shadow-sm flex items-center"
                 >
                   {isSubmitting && <Loader2 className="animate-spin h-3.5 w-3.5 mr-1" />}
                   Apply Adjustment
@@ -694,9 +696,9 @@ export default function ProductsPage() {
 
       {/* Modal: Confirm Delete */}
       {deletingProduct && (
-        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/50 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-2xl max-w-sm w-full p-6 shadow-xl border border-slate-200 text-center">
-            <div className="h-12 w-12 rounded-full bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-3">
+        <div className="fixed inset-0 z-50 overflow-y-auto bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4">
+          <div className="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-red-200 text-center">
+            <div className="h-12 w-12 rounded-2xl bg-red-100 text-red-600 flex items-center justify-center mx-auto mb-3 shadow-2xs">
               <Trash2 className="h-6 w-6" />
             </div>
             <h3 className="text-base font-bold text-slate-900">Delete Product</h3>
@@ -707,7 +709,7 @@ export default function ProductsPage() {
               <button
                 type="button"
                 onClick={() => setDeletingProduct(null)}
-                className="px-4 py-2 border border-slate-300 text-slate-700 text-xs font-medium rounded-lg hover:bg-slate-50"
+                className="px-4 py-2 border border-slate-300 text-slate-700 text-xs font-semibold rounded-xl hover:bg-slate-50"
               >
                 Cancel
               </button>
@@ -715,7 +717,7 @@ export default function ProductsPage() {
                 type="button"
                 disabled={isSubmitting}
                 onClick={handleDeleteProduct}
-                className="px-4 py-2 bg-red-600 hover:bg-red-700 text-white text-xs font-medium rounded-lg flex items-center"
+                className="px-4 py-2 bg-gradient-to-r from-red-600 to-rose-600 hover:from-red-500 hover:to-rose-500 text-white text-xs font-bold rounded-xl shadow-sm flex items-center"
               >
                 {isSubmitting && <Loader2 className="animate-spin h-3.5 w-3.5 mr-1" />}
                 Confirm Delete
